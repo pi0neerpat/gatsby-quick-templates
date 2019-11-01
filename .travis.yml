@@ -13,6 +13,6 @@ deploy:
 notifications:
   webhooks: https://discordapp.com/api/webhooks/639956435970686977/DISCORD-KEY
 after_success:
-  script: ./scripts/send.sh success $DISCORD_WEBHOOK_URL
+  - ./scripts/send.sh success $DISCORD_WEBHOOK_URL
 after_failure:
-  script: ./scripts/send.sh failure $DISCORD_WEBHOOK_URL
+  - ./scripts/send.sh failure $DISCORD_WEBHOOK_URL
