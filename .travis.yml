@@ -6,17 +6,13 @@ node_js:
 deploy:
   provider: script
   # Note: change "docs" to the directory where your gatsby-site lives, if necessary
-  script: cd ./ && yarn install && yarn run deploy
+  script: cd ./ && yarn && yarn deploy
   skip_cleanup: true
   on:
     branch: master
 notifications:
   webhooks: https://discordapp.com/api/webhooks/639956435970686977/DISCORD-KEY
 after_success:
-  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-  - chmod +x ./send.sh
-  - ./send.sh success $DISCORD_WEBHOOK_URL
+  script: ./scripts/send.sh success $DISCORD_WEBHOOK_URL
 after_failure:
-  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-  - chmod +x ./send.sh
-  - ./send.sh failure $DISCORD_WEBHOOK_URL
+  script: ./scripts/send.sh failure $DISCORD_WEBHOOK_URL
