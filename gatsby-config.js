@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `rDAI Trees`,
+    description: `Donate DAI to plant trees.`,
+    author: `@pi0neerpat, @patrykadas`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
