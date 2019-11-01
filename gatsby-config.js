@@ -4,6 +4,7 @@ module.exports = {
     description: `Donate DAI to plant trees.`,
     author: `@pi0neerpat, @patrykadas`,
   },
+  pathPrefix: "/rdai-trees",
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
