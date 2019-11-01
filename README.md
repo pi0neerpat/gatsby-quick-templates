@@ -2,7 +2,7 @@
   rDAI Trees
 </h1>
 
-(Description)
+[![Build Status](https://secure.travis-ci.org/pi0neerpat/rdai-trees.png?branch=master)](https://travis-ci.org/pi0neerpat/rdai-trees)
 
 ## 🚀 Quick start
 

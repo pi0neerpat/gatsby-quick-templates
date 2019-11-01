@@ -26,6 +26,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "gh-pages": "^2.1.1",
     "husky": "^3.0.9",
     "parcel-bundler": "^1.12.4",
     "prettier": "^1.18.2",
@@ -46,7 +47,7 @@
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
     "deploy-surge": "yarn build && surge ./public rdai-trees.surge.sh",
-    "deploy":"gatsby build --prefix-paths && gh-pages -d public -r https://$GH_TOKEN@github.com/pi0neerpat/rdai-trees.git",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public -r https://$GH_TOKEN@github.com/pi0neerpat/rdai-trees.git",
     "lint": "eslint ./src --fix"
   },
   "repository": {
