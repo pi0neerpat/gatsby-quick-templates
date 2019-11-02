@@ -2,8 +2,8 @@
   rDAI Trees
 </h1>
 
+![](https://img.shields.io/github/package-json/v/pi0neerpat/rdai-trees)
 [![Build Status](https://secure.travis-ci.org/pi0neerpat/rdai-trees.png?branch=master)](https://travis-ci.org/pi0neerpat/rdai-trees)
-
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/pi0neerpat/rdai-trees.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/pi0neerpat/rdai-trees/context:javascript)
 
 ## 🚀 Quick start
