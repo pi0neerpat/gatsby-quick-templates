@@ -1,0 +1,16 @@
+language: node_js
+before_script:
+  - npm install -g gatsby-cli
+node_js:
+  - "10"
+deploy:
+  provider: script
+  # Note: change "docs" to the directory where your gatsby-site lives, if necessary
+  script: cd ./ && yarn && yarn deploy
+  skip_cleanup: true
+  on:
+    branch: master
+after_success:
+  - ./travis-notification-discord success $DISCORD_WEBHOOK_URL
+after_failure:
+  - ./travis-notification-discord failure $DISCORD_WEBHOOK_URL
