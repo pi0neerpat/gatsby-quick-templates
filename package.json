@@ -1,7 +1,7 @@
 {
-  "name": "rdai-trees",
+  "name": "gatsby-quick-templates",
   "private": true,
-  "description": "Donate DAI to plant trees.",
+  "description": "Gatsby template.",
   "version": "0.1.0",
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.6",

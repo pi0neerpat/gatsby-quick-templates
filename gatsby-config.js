@@ -2,9 +2,9 @@ module.exports = {
   siteMetadata: {
     title: `gatsby-starter`,
     description: `My Site description`,
-    author: `@pi0neerpat`,
+    author: `<Author name>`,
   },
-  pathPrefix: "/rdai-trees",
+  // pathPrefix: "/<github-repo>",
   plugins: [
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,

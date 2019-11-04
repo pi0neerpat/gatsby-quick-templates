@@ -19,8 +19,11 @@ Open browser at http://localhost:8000
 
 ## Set-up
 
-1. Enter your site basic info within `gatsby-config.js` (a) siteMetadata and (b) plugin details for `gatsby-plugin-manifest`.
-2.
+1. Edit `gatsby-config.js` with:
+  - siteMetadata
+  - SEO details for `gatsby-plugin-manifest`.
+
+2. 
 
 ## Features
 
