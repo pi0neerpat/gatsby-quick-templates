@@ -13,7 +13,10 @@ const Web3 = ({ children }) => {
   useEffect(() => {
     async function loadWeb3() {
       // Load the Web3 wallet
-      if (window && typeof window.ethereum !== "undefined") {
+      if (
+        typeof window !== "undefined" &&
+        typeof window.ethereum !== "undefined"
+      ) {
         // Prevent MetaMask from page reloads on network change
         window.ethereum.autoRefreshOnNetworkChange = false
 
