@@ -5,6 +5,8 @@
   "version": "0.1.0",
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.6",
+    "bnc-assist": "^0.10.3",
+    "ethers": "^4.0.39",
     "gatsby": "^2.17.6",
     "gatsby-image": "^2.2.30",
     "gatsby-plugin-manifest": "^2.2.25",
@@ -18,7 +20,8 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-helmet": "^5.2.1",
-    "styled-components": "^4.4.1"
+    "styled-components": "^4.4.1",
+    "tribute-utils": "^0.0.1"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
