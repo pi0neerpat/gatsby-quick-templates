@@ -1,33 +1,48 @@
-import { Link } from "gatsby"
-import PropTypes from "prop-types"
 import React from "react"
+import PropTypes from "prop-types"
+import styled from "styled-components"
+import { Link } from "gatsby"
+import Logo from "../images/logo.svg"
+
+const StyledButton = styled(Link)`
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 600;
+  color: #232927;
+  text-decoration: none;
+  border: 1px solid #bbd9ce;
+  border-radius: 50px;
+  padding: 12px 30px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border: 1px solid #232927;
+    transition: border 0.2s ease;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    transition: transform 0.2s ease;
+  }
+`
 
 const Header = ({ siteTitle }) => (
   <header
     style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
+      background: `transparent`,
+      padding: `30px`,
+      display: `flex`,
+      justifyContent: `space-between`,
+      marginBottom: `60px`,
     }}
   >
-    <div
+    <img
+      src={Logo}
       style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
+        margin: `0`,
       }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
+    />
+    <StyledButton to="/garden/">Log in to your to garden</StyledButton>
   </header>
 )
 
