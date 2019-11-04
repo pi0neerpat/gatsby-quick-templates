@@ -10,13 +10,12 @@ const Web3 = ({ children }) => {
   const [context, setContext] = useContext(Context)
   const { address } = context
 
+  const isBrowser = typeof window !== "undefined"
+
   useEffect(() => {
     async function loadWeb3() {
       // Load the Web3 wallet
-      if (
-        typeof window !== "undefined" &&
-        typeof window.ethereum !== "undefined"
-      ) {
+      if (isBrowser && typeof window.ethereum !== "undefined") {
         // Prevent MetaMask from page reloads on network change
         window.ethereum.autoRefreshOnNetworkChange = false
 
@@ -82,7 +81,7 @@ const Web3 = ({ children }) => {
   }, [])
 
   // Handle wallet events
-  if (typeof window.ethereum !== "undefined") {
+  if (isBrowser && typeof window.ethereum !== "undefined") {
     // Detect when user changes their wallet address
     window.ethereum.on("accountsChanged", accounts => {
       // should update context when user change is detected
