@@ -1,8 +1,22 @@
 {
-  "name": "gatsby-quick-templates",
-  "private": true,
+  "name": "gatsby-template",
+  "author": "Patrick Gallagher",
+  "version": "1.0.0",
   "description": "Gatsby template.",
-  "version": "0.1.0",
+  "scripts": {
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
+    "deploy-surge": "yarn build && surge ./public gatsby-template.surge.sh",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public -r https://$GH_TOKEN@github.com/<owner>/<repo-name>.git",
+    "lint": "eslint ./src --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
+  },
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.6",
     "ethers": "^4.0.39",
@@ -36,29 +50,20 @@
     "prettier": "^1.18.2",
     "prettier-eslint": "^9.0.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint"
-    }
-  },
-  "keywords": [
-    "rDAI"
-  ],
   "license": "MIT",
-  "scripts": {
-    "start": "gatsby develop",
-    "build": "gatsby build",
-    "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
-    "deploy-surge": "yarn build && surge ./public rdai-trees.surge.sh",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public -r https://$GH_TOKEN@github.com/pi0neerpat/rdai-trees.git",
-    "lint": "eslint ./src --fix"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pi0neerpat/rdai-trees"
+    "url": "git+https://github.com/pi0neerpat/gatsby-quick-templates.git"
   },
   "bugs": {
-    "url": "https://github.com/pi0neerpat/rdai-trees/issues"
-  }
+    "url": "https://github.com/pi0neerpat/gatsby-quick-templates/issues"
+  },
+  "keywords": [
+    "gatsby",
+    "ethereum",
+    "web3",
+    "dapp",
+    "boilerplate"
+  ],
+  "homepage": "https://github.com/pi0neerpat/gatsby-quick-templates#readme"
 }
