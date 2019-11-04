@@ -24,3 +24,7 @@ Open browser at http://localhost:8000
 
 [Awesome-Styled-Components](https://github.com/styled-components/awesome-styled-components)
 [Gatsby documentation](https://www.gatsbyjs.org/docs/)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpi0neerpat%2Frdai-trees.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpi0neerpat%2Frdai-trees?ref=badge_large)
