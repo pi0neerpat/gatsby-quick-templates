@@ -12,13 +12,8 @@ const Web3 = ({ children }) => {
 
   useEffect(() => {
     async function loadWeb3() {
-      if (!window) {
-        console.log("SSR detected, skipping wallet loading")
-        return
-      }
-
       // Load the Web3 wallet
-      if (typeof window.ethereum !== "undefined") {
+      if (window && typeof window.ethereum !== "undefined") {
         // Prevent MetaMask from page reloads on network change
         window.ethereum.autoRefreshOnNetworkChange = false
 
@@ -76,7 +71,7 @@ const Web3 = ({ children }) => {
       } else {
         // Browser doesn't have Web3
         setContext({
-          error: "Failed to load wallet: no window.ethereum",
+          error: "Failed to load wallet: no window.ethereum, or SSR",
         })
       }
     }
