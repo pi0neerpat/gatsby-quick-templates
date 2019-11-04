@@ -12,6 +12,11 @@ const Web3 = ({ children }) => {
 
   useEffect(() => {
     async function loadWeb3() {
+      if (!window) {
+        console.log("SSR detected, skipping wallet loading")
+        return
+      }
+
       // Load the Web3 wallet
       if (typeof window.ethereum !== "undefined") {
         // Prevent MetaMask from page reloads on network change
