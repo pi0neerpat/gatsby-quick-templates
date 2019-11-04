@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 
 import { Context } from "../context"
 import DAIabi from "./contracts/dai"
-import { CONTRACTS } from "./constants"
+import CONTRACTS from "./constants"
 
 const Web3 = ({ children }) => {
   const [context, setContext] = useContext(Context)
