@@ -1,6 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
+import { Context } from "../components/context"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import "../components/fonts.css"
@@ -209,67 +210,79 @@ const Container = styled.section`
   text-align: center;
 `
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <Container>
-      <H1>Make your DAI work to plant trees</H1>
-      <P>
-        Generate interest to continuously grow trees. Spend and transfer your
-        investment at will.
-      </P>
-      <StyledLink>Check how it works</StyledLink>
-      <Columns>
-        <Column>
-          <H5>Supporter</H5>
-          <OptionSupporter>
-            <img src={Supporter} />
-            <h3>
-              10 <span style={{ fontSize: "28px" }}>DAI</span>
-            </h3>
-            <p>1 tree per year</p>
-            <div>
-              <span>Seed</span>
-            </div>
-            <button>Start growing</button>
-          </OptionSupporter>
-        </Column>
+const IndexPage = () => {
+  const [context] = React.useContext(Context)
+  const { tribute } = context
+  const startGrowing = level => {
+    const levelAmountDai = [10, 100, 500]
+    tribute.generate(levelAmountDai[level])
+    console.log("Tributing!")
+  }
 
-        <Column>
-          <H5>Gamekeeper</H5>
-          <OptionGamekeeper>
-            <img src={Gamekeeper} />
-            <h3>
-              10 <span style={{ fontSize: "28px" }}>DAI</span>
-            </h3>
-            <p>1 tree per year</p>
-            <div>
-              <span>Seed</span>
-              <span>Water</span>
-            </div>
-            <button>Start growing</button>
-          </OptionGamekeeper>
-        </Column>
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <Container>
+        <H1>Make your DAI work to plant trees</H1>
+        <P>
+          Generate interest to continuously grow trees. Spend and transfer your
+          investment at will.
+        </P>
+        <StyledLink>Check how it works</StyledLink>
+        <Columns>
+          <Column>
+            <H5>Supporter</H5>
+            <OptionSupporter>
+              <img src={Supporter} />
+              <h3>
+                10 <span style={{ fontSize: "28px" }}>DAI</span>
+              </h3>
+              <p>1 tree per year</p>
+              <div>
+                <span>Seed</span>
+              </div>
+              <button type="button" onClick={() => startGrowing(0)}>
+                Start growing
+              </button>
+            </OptionSupporter>
+          </Column>
 
-        <Column>
-          <H5>Ent</H5>
-          <OptionEnt>
-            <img src={Ent} />
-            <h3>
-              10 <span style={{ fontSize: "28px" }}>DAI</span>
-            </h3>
-            <p>1 tree per year</p>
-            <div>
-              <span>Seed</span>
-              <span>Water</span>
-              <span>Fertilizer</span>
-            </div>
-            <button>Start growing</button>
-          </OptionEnt>
-        </Column>
-      </Columns>
-    </Container>
-  </Layout>
-)
+          <Column>
+            <H5>Gamekeeper</H5>
+            <OptionGamekeeper>
+              <img src={Gamekeeper} />
+              <h3>
+                10 <span style={{ fontSize: "28px" }}>DAI</span>
+              </h3>
+              <p>1 tree per year</p>
+              <div>
+                <span>Seed</span>
+                <span>Water</span>
+              </div>
+              <button>Start growing</button>
+            </OptionGamekeeper>
+          </Column>
+
+          <Column>
+            <H5>Ent</H5>
+            <OptionEnt>
+              <img src={Ent} />
+              <h3>
+                10 <span style={{ fontSize: "28px" }}>DAI</span>
+              </h3>
+              <p>1 tree per year</p>
+              <div>
+                <span>Seed</span>
+                <span>Water</span>
+                <span>Fertilizer</span>
+              </div>
+              <button>Start growing</button>
+            </OptionEnt>
+          </Column>
+        </Columns>
+      </Container>
+    </Layout>
+  )
+}
 
 export default IndexPage

@@ -1,10 +1,13 @@
 import React, { useContext, useEffect } from "react"
 import { ethers } from "ethers"
 import PropTypes from "prop-types"
+import Tribute from "tribute-utils"
 
 import { Context } from "../context"
+
+import CONTRACTS from "./constants"
 import DAIabi from "./contracts/dai"
-import { CONTRACTS } from "./constants"
+import rDAIabi from "./contracts/rdai"
 
 const Web3 = ({ children }) => {
   const [context, setContext] = useContext(Context)
@@ -12,75 +15,97 @@ const Web3 = ({ children }) => {
 
   const isBrowser = typeof window !== "undefined"
 
-  useEffect(() => {
-    async function loadWeb3() {
-      // Load the Web3 wallet
-      if (isBrowser && typeof window.ethereum !== "undefined") {
-        // Prevent MetaMask from page reloads on network change
-        window.ethereum.autoRefreshOnNetworkChange = false
-
-        // Load wallet.
-        let walletAddress = ""
-        try {
-          walletAddress = await window.ethereum.enable()
-          // eslint-disable-next-line no-console
-          console.log(`Loaded address ${walletAddress}`)
-        } catch (error) {
-          // eslint-disable-next-line no-console
-          console.log(`Failed to load wallet: ${error.message}`)
-          setContext({
-            ...context,
-            isWeb3Present: true,
-            error: `Failed to load wallet: ${error.message}`,
-          })
-        }
-        setContext({
-          ...context,
-          isWeb3Present: true,
-          address: walletAddress,
-          error: "",
-        })
-
-        // Load contracts
-        try {
-          const walletProvider = new ethers.providers.Web3Provider(
-            window.web3.currentProvider
-          )
-
-          const DAIContract = new ethers.Contract(
-            CONTRACTS.dai.kovan,
-            DAIabi,
-            walletProvider.getSigner()
-          )
-          // Sanity Check
-          const decimals = await DAIContract.decimals()
-          // eslint-disable-next-line no-console
-          console.log(decimals.toNumber())
-
-          setContext(state => ({
-            ...state,
-            contracts: [DAIContract],
-            provider: walletProvider,
-          }))
-        } catch (error) {
-          // eslint-disable-next-line no-console
-          console.log("Web3 Loading Error: ", error.message)
-          setContext(state => ({
-            ...state,
-            error: `Web3 Loading Error 2: ${error}`,
-          }))
-        }
-      } else {
-        // Browser doesn't have Web3
-        setContext({
-          error: "Failed to load wallet: no window.ethereum, or SSR",
-        })
-      }
+  const load = async () => {
+    // Load Wallet
+    let walletAddress = ""
+    try {
+      walletAddress = await window.ethereum.enable()
+      // eslint-disable-next-line no-console
+      console.log(`Loaded address ${walletAddress}`)
+    } catch (error) {
+      const errorMsg = `Failed to load wallet:  ${error.message}`
+      // eslint-disable-next-line no-console
+      console.log(errorMsg)
+      setContext({
+        ...context,
+        isWeb3Present: true,
+        error: errorMsg,
+      })
     }
-    loadWeb3()
+    localStorage.setItem("walletAddress", walletAddress)
+    setContext({
+      ...context,
+      isWeb3Present: true,
+      address: walletAddress,
+      error: "",
+    })
+
+    // Load Contracts
+    try {
+      const walletProvider = new ethers.providers.Web3Provider(
+        window.web3.currentProvider
+      )
+
+      const network = await walletProvider.getNetwork()
+      console.log(`On Network: ${network.name}`)
+
+      const DAIContract = new ethers.Contract(
+        CONTRACTS.dai[network.name],
+        DAIabi,
+        walletProvider.getSigner()
+      )
+      // Sanity Check (WORKS ONLY ON KOVAN at the moment)
+      const decimals = await DAIContract.decimals()
+      // eslint-disable-next-line no-console
+      console.log(
+        `(sanity check) DAI contract decimals: ${decimals.toNumber()}`
+      )
+
+      const rDAIContract = new ethers.Contract(
+        CONTRACTS.rtoken.kovan,
+        rDAIabi,
+        walletProvider.getSigner()
+      )
+
+      const tribute = new Tribute(DAIContract, rDAIContract, walletAddress[0])
+      const userDetails = await tribute.getInfo(walletAddress[0])
+
+      setContext({
+        ...context,
+        userDetails,
+        tribute,
+        contracts: [DAIContract, rDAIContract],
+        provider: walletProvider,
+      })
+    } catch (error) {
+      const errorMsg = `Failed to load contracts:  ${error.message}`
+      // eslint-disable-next-line no-console
+      console.log(errorMsg)
+      setContext({
+        ...context,
+        error: errorMsg,
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (isBrowser && typeof window.ethereum !== "undefined") {
+      // Prevent MetaMask from page reloads on network change
+      window.ethereum.autoRefreshOnNetworkChange = false
+      load()
+    } else {
+      // Browser doesn't have Web3
+      const errorMsg = `Failed to load wallet: no window.ethereum, or SSR`
+      // eslint-disable-next-line no-console
+      console.log(errorMsg)
+      setContext({
+        ...context,
+        error: errorMsg,
+      })
+    }
   }, [])
 
-  // Handle wallet events
+  // Handle change events
   if (isBrowser && typeof window.ethereum !== "undefined") {
     // Detect when user changes their wallet address
     window.ethereum.on("accountsChanged", accounts => {
