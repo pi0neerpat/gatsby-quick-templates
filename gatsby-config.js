@@ -1,3 +1,7 @@
+// require("dotenv").config({
+//   path: `.env.${process.env.NODE_ENV}`,
+// })
+
 module.exports = {
   siteMetadata: {
     title: `rDAI Trees`,
@@ -5,6 +9,7 @@ module.exports = {
     author: `@pi0neerpat, @patrykadas`,
   },
   pathPrefix: "/rdai-trees",
+
   plugins: [
     `gatsby-plugin-offline`,
     `gatsby-plugin-react-helmet`,

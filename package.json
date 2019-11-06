@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.6",
-    "bnc-assist": "^0.10.3",
+    "bnc-notify": "^0.2.5",
     "ethers": "^4.0.39",
     "gatsby": "^2.17.6",
     "gatsby-image": "^2.2.30",

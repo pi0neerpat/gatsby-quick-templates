@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react"
 import { ethers } from "ethers"
 import PropTypes from "prop-types"
 import Tribute from "tribute-utils"
+import Notify from "bnc-notify"
 
 import { Context } from "../context"
 
@@ -13,6 +14,15 @@ const Web3 = ({ children }) => {
   const [context, setContext] = useContext(Context)
   const { address } = context
 
+  const bncOptions = {
+    dappId: process.env.BNCKey,
+    darkMode: true,
+    mobilePosition: "top",
+    desktopPosition: "bottomRight",
+    networkId: 42,
+    transactionEvents: event =>
+      console.log("Transaction Event:", event.transaction),
+  }
   const isBrowser = typeof window !== "undefined"
 
   const load = async () => {
@@ -47,6 +57,7 @@ const Web3 = ({ children }) => {
       )
 
       const network = await walletProvider.getNetwork()
+      // eslint-disable-next-line no-console
       console.log(`On Network: ${network.name}`)
 
       const DAIContract = new ethers.Contract(
@@ -67,16 +78,34 @@ const Web3 = ({ children }) => {
         walletProvider.getSigner()
       )
 
-      const tribute = new Tribute(DAIContract, rDAIContract, walletAddress[0])
-      const userDetails = await tribute.getInfo(walletAddress[0])
-
       setContext({
         ...context,
-        userDetails,
-        tribute,
         contracts: [DAIContract, rDAIContract],
         provider: walletProvider,
       })
+
+      // Load Tools
+      try {
+        const tribute = new Tribute(DAIContract, rDAIContract, walletAddress[0])
+        const userDetails = await tribute.getInfo(walletAddress[0])
+
+        const notify = Notify(bncOptions)
+
+        setContext({
+          ...context,
+          userDetails,
+          notify,
+          tribute,
+        })
+      } catch (error) {
+        const errorMsg = `Failed to load Web3 Tools:  ${error.message}`
+        // eslint-disable-next-line no-console
+        console.log(errorMsg)
+        setContext({
+          ...context,
+          error: errorMsg,
+        })
+      }
     } catch (error) {
       const errorMsg = `Failed to load contracts:  ${error.message}`
       // eslint-disable-next-line no-console
