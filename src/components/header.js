@@ -36,22 +36,17 @@ const Header = ({ siteTitle }) => (
       marginBottom: `60px`,
     }}
   >
-    <img
-      src={Logo}
-      style={{
-        margin: `0`,
-      }}
-    />
+    <Link to="/">
+      <img
+        src={Logo}
+        style={{
+          margin: "0",
+        }}
+      />
+    </Link>
+
     <StyledButton to="/garden/">Log in to your to garden</StyledButton>
   </header>
 )
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
-}
 
 export default Header

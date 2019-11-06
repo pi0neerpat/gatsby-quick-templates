@@ -3,7 +3,6 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 
 import { ethers } from "ethers"
-const { bigNumberify, formatUnits } = ethers.utils
 import DAIabi from "../components/web3/contracts/dai"
 
 import { Context } from "../components/context"
@@ -14,6 +13,8 @@ import "../components/fonts.css"
 import Supporter from "../images/supporter.png"
 import Gamekeeper from "../images/gamekeeper.png"
 import Ent from "../images/ent.png"
+
+const { bigNumberify, formatUnits } = ethers.utils
 
 const H1 = styled.h1`
   font-family: "Inter", sans-serif;
@@ -231,7 +232,7 @@ const IndexPage = () => {
       walletProvider.getSigner()
     )
 
-    let tx = await DAIContract.approve(
+    const tx = await DAIContract.approve(
       "0xea718e4602125407fafcb721b7d760ad9652dfe7",
       bigNumberify(levelAmountDai[level])
     )
