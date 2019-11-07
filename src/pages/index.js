@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 
@@ -217,7 +217,7 @@ const Container = styled.section`
 `
 
 const IndexPage = () => {
-  const [context] = React.useContext(Context)
+  const [context, setContext] = useContext(Context)
   const { tribute, notify } = context
   const startGrowing = async level => {
     const levelAmountDai = [10, 100, 500]
@@ -236,17 +236,26 @@ const IndexPage = () => {
       "0xea718e4602125407fafcb721b7d760ad9652dfe7",
       bigNumberify(levelAmountDai[level])
     )
-    console.log(tx.hash)
     const { emitter } = notify.hash(tx.hash)
 
     // listen to transaction events
-    emitter.on("txSent", console.log)
+    emitter.on("txSent", () => {
+      console.log("txSent")
+      setContext({ ...context, txStatus: "txSent" })
+    })
     emitter.on("txPool", console.log)
     emitter.on("txConfirmed", console.log)
     emitter.on("txSpeedUp", console.log)
     emitter.on("txCancel", console.log)
     emitter.on("txFailed", console.log)
     emitter.on("all", console.log)
+  }
+
+  const TxStatusComponent = () => {
+    if (context.txStatus === "txSent") {
+      return <p>Transactions pending</p>
+    }
+    return null
   }
 
   return (
@@ -258,6 +267,7 @@ const IndexPage = () => {
           Generate interest to continuously grow trees. Spend and transfer your
           investment at will.
         </P>
+        <TxStatusComponent />
         <StyledLink>Check how it works</StyledLink>
         <Columns>
           <Column>
