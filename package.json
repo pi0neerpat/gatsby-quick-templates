@@ -4,6 +4,7 @@
   "description": "Donate DAI to plant trees.",
   "version": "0.1.0",
   "dependencies": {
+    "@status-im/subspace": "^1.1.0",
     "babel-plugin-styled-components": "^1.10.6",
     "bnc-notify": "^0.2.5",
     "ethers": "^4.0.39",
@@ -20,8 +21,10 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-helmet": "^5.2.1",
+    "rxjs": "^6.5.3",
     "styled-components": "^4.4.1",
-    "tribute-utils": "^0.0.4"
+    "tribute-utils": "^0.0.4",
+    "web3": "^1.2.2"
   },
   "devDependencies": {
     "eslint": "^6.6.0",

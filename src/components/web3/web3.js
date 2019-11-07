@@ -3,6 +3,8 @@ import { ethers } from "ethers"
 import PropTypes from "prop-types"
 import Tribute from "tribute-utils"
 import Notify from "bnc-notify"
+import Subspace from "@status-im/subspace"
+import Web3 from "web3"
 
 import { Context } from "../context"
 
@@ -10,19 +12,10 @@ import CONTRACTS from "./constants"
 import DAIabi from "./contracts/dai"
 import rDAIabi from "./contracts/rdai"
 
-const Web3 = ({ children }) => {
+const Web3Wrapper = ({ children }) => {
   const [context, setContext] = useContext(Context)
   const { address } = context
 
-  const bncOptions = {
-    dappId: process.env.BNCKey,
-    darkMode: true,
-    mobilePosition: "top",
-    desktopPosition: "bottomRight",
-    networkId: 42,
-    transactionEvents: event =>
-      console.log("Transaction Event:", event.transaction),
-  }
   const isBrowser = typeof window !== "undefined"
 
   const load = async () => {
@@ -80,22 +73,50 @@ const Web3 = ({ children }) => {
 
       setContext({
         ...context,
+        address: walletAddress,
         contracts: [DAIContract, rDAIContract],
         provider: walletProvider,
       })
 
       // Load Tools
       try {
+        // TRIBUTE
         const tribute = new Tribute(DAIContract, rDAIContract, walletAddress[0])
         const userDetails = await tribute.getInfo(walletAddress[0])
 
+        // Block Native
+        const bncOptions = {
+          dappId: process.env.BNCKey,
+          darkMode: true,
+          mobilePosition: "top",
+          desktopPosition: "bottomRight",
+          networkId: 42,
+          transactionEvents: event =>
+            console.log("Transaction Event:", event.transaction),
+        }
         const notify = Notify(bncOptions)
+
+        // SUBSPACE
+
+        const web3 = new Web3(
+          `wss://kovan.infura.io/ws/v3/${process.env.INFURA_ENDPOINT_KEY}`
+        )
+        // Option to use MetaMask provider
+        // const subspace = new Subspace(window.web3.currentProvider)
+        const subspace = new Subspace(web3.currentProvider)
+        await subspace.init()
 
         setContext({
           ...context,
           userDetails,
           notify,
           tribute,
+          subspace,
+          address: walletAddress,
+          contracts: {
+            rDAIContract,
+            DAIContract,
+          },
         })
       } catch (error) {
         const errorMsg = `Failed to load Web3 Tools:  ${error.message}`
@@ -154,8 +175,8 @@ const Web3 = ({ children }) => {
   return <>{children}</>
 }
 
-Web3.propTypes = {
+Web3Wrapper.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Web3
+export default Web3Wrapper

@@ -1,9 +1,10 @@
-import React, { useContext } from "react"
+import React, { useState, useContext } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 
 import { ethers } from "ethers"
 import DAIabi from "../components/web3/contracts/dai"
+import rDAIabi from "../components/web3/contracts/rdai"
 
 import { Context } from "../components/context"
 import Layout from "../components/layout"
@@ -14,7 +15,7 @@ import Supporter from "../images/supporter.png"
 import Gamekeeper from "../images/gamekeeper.png"
 import Ent from "../images/ent.png"
 
-const { bigNumberify, formatUnits } = ethers.utils
+const { bigNumberify } = ethers.utils
 
 const H1 = styled.h1`
   font-family: "Inter", sans-serif;
@@ -217,20 +218,54 @@ const Container = styled.section`
 `
 
 const IndexPage = () => {
-  const [context, setContext] = useContext(Context)
-  const { tribute, notify } = context
+  const [context] = useContext(Context)
+  const [state] = useState({
+    myEventObservable$: null,
+  })
+  const { tribute, notify, subspace, address } = context
+
+  const walletProvider = new ethers.providers.Web3Provider(
+    window.web3.currentProvider
+  )
+
+  const DAIContract = new ethers.Contract(
+    "0xbf7a7169562078c96f0ec1a8afd6ae50f12e5a99",
+    DAIabi,
+    walletProvider.getSigner()
+  )
+  console.log(context)
+  // SUBSPACE
+  if (subspace && address && address[0]) {
+    const daiContract = subspace.contract({
+      abi: DAIabi,
+      address: "0xbf7a7169562078c96f0ec1a8afd6ae50f12e5a99",
+    })
+    const rdaiContract = subspace.contract({
+      abi: rDAIabi,
+      address: "0xea718e4602125407fafcb721b7d760ad9652dfe7",
+    })
+    daiContract.methods
+      .balanceOf(address[0])
+      .track()
+      .subscribe(balance => {
+        console.log(`DAI balance: ${balance}`)
+      })
+    rdaiContract.methods
+      .balanceOf(address[0])
+      .track()
+      .subscribe(balance => {
+        console.log(`rDAI balance: ${balance}`)
+      })
+
+    subspace
+      .trackBalance("0x9492510BbCB93B6992d8b7Bb67888558E12DCac4")
+      .subscribe(balance => {
+        console.log("ETH balance is ", balance)
+      })
+  }
+
   const startGrowing = async level => {
     const levelAmountDai = [10, 100, 500]
-
-    const walletProvider = new ethers.providers.Web3Provider(
-      window.web3.currentProvider
-    )
-
-    const DAIContract = new ethers.Contract(
-      "0xbf7a7169562078c96f0ec1a8afd6ae50f12e5a99",
-      DAIabi,
-      walletProvider.getSigner()
-    )
 
     const tx = await DAIContract.approve(
       "0xea718e4602125407fafcb721b7d760ad9652dfe7",
