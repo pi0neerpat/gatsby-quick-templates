@@ -24,7 +24,7 @@
     "react-helmet": "^5.2.1",
     "rxjs": "^6.5.3",
     "styled-components": "^4.4.1",
-    "tribute-utils": "^0.0.4",
+    "tribute-utils": "^0.0.5",
     "web3": "^1.2.2"
   },
   "devDependencies": {

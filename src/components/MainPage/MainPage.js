@@ -216,7 +216,7 @@ const Container = styled.section`
 `
 
 const MainPage = () => {
-  const [context] = useContext(Context)
+  const [context, setContext] = useContext(Context)
   const [state] = useState({
     myEventObservable$: null,
   })
