@@ -7,7 +7,11 @@ module.exports = [
     component: path.resolve(`src/pages/index.js`),
   },
   {
-    path: `/garden/`,
+    path: `/garden`,
     component: path.resolve(`src/pages/index.js`),
+  },
+  {
+    path: "/404/",
+    component: path.resolve(`src/pages/404.js`),
   },
 ]
