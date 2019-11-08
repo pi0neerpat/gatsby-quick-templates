@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 import { Link } from "gatsby"
-import Logo from "../images/logo.svg"
+import Logo from "../../../images/logo.svg"
 
 const StyledButton = styled(Link)`
   font-family: "Inter";
