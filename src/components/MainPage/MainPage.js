@@ -299,7 +299,7 @@ const MainPage = () => {
         investment at will.
       </P>
       <TxStatusComponent />
-      <StyledLink>Check how it works</StyledLink>
+      <StyledLink to="/">Check how it works</StyledLink>
       <Columns>
         <Column>
           <H5>Supporter</H5>

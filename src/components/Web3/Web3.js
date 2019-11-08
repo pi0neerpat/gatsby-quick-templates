@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react"
 import { ethers } from "ethers"
-import PropTypes from "prop-types"
 import Tribute from "tribute-utils"
 import Notify from "bnc-notify"
 import Subspace from "@status-im/subspace"
@@ -12,7 +11,7 @@ import CONTRACTS from "./constants"
 import DAIabi from "./contracts/dai"
 import rDAIabi from "./contracts/rdai"
 
-const Web3Wrapper = ({ children }) => {
+const Web3Wrapper = () => {
   const [context, setContext] = useContext(Context)
   const { address } = context
 
@@ -174,11 +173,7 @@ const Web3Wrapper = ({ children }) => {
     })
   }
 
-  return <>{children}</>
-}
-
-Web3Wrapper.propTypes = {
-  children: PropTypes.node.isRequired,
+  return <></>
 }
 
 export default Web3Wrapper
