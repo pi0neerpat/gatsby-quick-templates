@@ -91,8 +91,10 @@ const Web3Wrapper = ({ children }) => {
           mobilePosition: "top",
           desktopPosition: "bottomRight",
           networkId: 42,
-          transactionEvents: event =>
-            console.log("Transaction Event:", event.transaction),
+          transactionEvents: event => {
+            // eslint-disable-next-line no-console
+            console.log("Transaction Event:", event.transaction)
+          },
         }
         const notify = Notify(bncOptions)
 
