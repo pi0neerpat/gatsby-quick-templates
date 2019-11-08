@@ -3,6 +3,8 @@ import { Context } from "../context"
 
 import Layout from "../Layout"
 import MainPage from "../MainPage/MainPage"
+import Garden from "../Garden/Garden"
+import SEO from "../seo"
 
 const InterfaceHandler = () => {
   const [context] = useContext(Context)
@@ -11,9 +13,15 @@ const InterfaceHandler = () => {
   let showInterface = <MainPage />
 
   if (showGarden) {
-    showInterface = <>Garden interface</>
+    showInterface = <Garden />
   }
-  return <Layout>{showInterface}</Layout>
+  return (
+    <Layout>
+      {" "}
+      <SEO title="Home" />
+      {showInterface}
+    </Layout>
+  )
 }
 
 export default InterfaceHandler

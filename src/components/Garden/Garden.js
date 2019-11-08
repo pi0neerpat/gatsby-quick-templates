@@ -2,8 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 
-import Layout from "../components/Layout"
-import SEO from "../components/seo"
+import Layout from "../Layout"
 
 const PowerUpsData = [
   {
@@ -199,7 +198,6 @@ const PowerUpsList = () => (
 
 const SecondPage = () => (
   <Layout>
-    <SEO title="Your Garden" />
     <PowerUpsList />
     {growingTreeData.map(item => (
       <CounterContainer
