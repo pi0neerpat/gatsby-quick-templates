@@ -196,8 +196,8 @@ const PowerUpsList = () => (
   </PowerUps>
 )
 
-const SecondPage = () => (
-  <Layout>
+const Garden = () => (
+  <>
     <PowerUpsList />
     {growingTreeData.map(item => (
       <CounterContainer
@@ -211,7 +211,7 @@ const SecondPage = () => (
         <h5>+{item.perWeekGrowth} per week</h5>
       </CounterContainer>
     ))}
-  </Layout>
+  </>
 )
 
-export default SecondPage
+export default Garden
