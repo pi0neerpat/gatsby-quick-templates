@@ -1,0 +1,13 @@
+// In your routes configuration file
+const path = require("path")
+
+module.exports = [
+  {
+    path: `/`,
+    component: path.resolve(`src/pages/index.js`),
+  },
+  {
+    path: `/garden/`,
+    component: path.resolve(`src/pages/index.js`),
+  },
+]

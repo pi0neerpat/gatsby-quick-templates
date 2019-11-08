@@ -3058,7 +3058,7 @@ chokidar@3.2.3:
   optionalDependencies:
     fsevents "~2.1.1"
 
-chokidar@^2.0.2, chokidar@^2.0.4, chokidar@^2.1.5, chokidar@^2.1.8:
+chokidar@^2.0.2, chokidar@^2.0.4, chokidar@^2.1.2, chokidar@^2.1.5, chokidar@^2.1.8:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.8.tgz#804b3a7b6a99358c3c5c61e71d8728f041cff917"
   integrity sha512-ZmZUazfOzf0Nve7duiCKD23PFSCs4JPoYyccjUFF3aQkQadqBhfzhjkwBH2mNOG9cTBwhamM37EIsIkZw3nRgg==
@@ -6146,6 +6146,14 @@ gatsby-plugin-react-helmet@^3.1.13:
   integrity sha512-O3Fvxm76t58RPVUz0Fo2tbXeJnXV6vmlLnKBPMz+smr0Mtx8vnGP1Pi6DuWdRepJsnVespNNth/L8n7iucQCYQ==
   dependencies:
     "@babel/runtime" "^7.6.3"
+
+gatsby-plugin-routes@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-routes/-/gatsby-plugin-routes-1.0.0.tgz#10a01ae6fc331cd545eee8eb6508b0478b45f82e"
+  integrity sha512-KVaDkqiENKLzDM5PaZiVkyXDhuWgqd9XmMv5aeVyMNFdrFYSVpngxI7egJWUeHyWxIucKHAqlb3SJw6TyxXWhg==
+  dependencies:
+    chokidar "^2.1.2"
+    core-js "^2.6.5"
 
 gatsby-plugin-sharp@^2.2.34:
   version "2.2.36"
